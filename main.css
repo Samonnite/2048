@@ -1,0 +1,46 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#test2048{
+    font-family: Arial;
+    margin: auto;
+    text-align: center;
+}
+#header{
+    margin: 20px;
+}
+#header a {
+    font-family: Arial;
+    text-decoration: none;
+    display: block;
+    color: white;
+    margin: 20px auto;
+    width: 125px;
+    height: 35px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #8f7a66;
+    border-radius: 10px;
+    font-size: 15px;
+}
+#header p{
+    font-family: Arial;
+    font-size: 20px;
+}
+#container{
+    width: 460px;
+    height: 460px;
+    background-color: #bbada0;
+    margin: 0 auto;
+    border-radius: 10px;
+    position: relative;
+    padding: 20px;
+}
+.cell{
+    width: 100px;
+    height: 100px;
+    border-radius: 6px;
+    background-color: #ccc0b3;
+    position: absolute;
+}
