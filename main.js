@@ -16,19 +16,19 @@ var gameover_string='GameOver';
 //HTML文档加载完成后，初始化棋局
 $(document).ready(function(){
     //做自适应处理
-    prepare_for_moblie();
-    newgame();
+    prepare_for_mobile();
+    new_game();
 });
 
 //开始新游戏
-function newgame(){
+function new_game(){
 
     //初始化棋盘格
     init();
 
     //在随机两个格子生成数字
-    generateOneNumber();
-    generateOneNumber();
+    generate_one_number();
+    generate_one_number();
 }
 
 
@@ -60,7 +60,7 @@ function update_board_view(){
     $('.number_cell').remove();
     for(var i=0;i<4;i++){
         for(var j=0;j<4;j++){
-            $('#gird_container').append('<div class="number_cell" id="number_cell_'+i+''+j+'"></div>');
+            $('#gird_container').append('<div class="number_cell" id="number_cell_'+i+'_'+j+'"></div>');
             var number_cell=$('#number_cell_'+i+''+j);
             if(board[i][j]){
                 number_cell.css('width','0px');
@@ -82,3 +82,73 @@ function update_board_view(){
     $('.number_cell').css('line-height',cell_side_length+'px');
     $('.number_cell').css('font-size',0.6*cell_side_length+'px');
 }
+
+//随机在一个格子生成数字
+function generate_one_number(){
+    if(nospace(board)){
+        return false;
+    }
+    //随机一个位置
+var randx=parseInt(Math.floor(Math.random()*4));
+var randy=parseInt(Math.floor(Math.random()*4));
+var time=0;
+while(time<50){
+    if(board[randx][randy]==0){
+        break;
+    }
+    randx=parseInt(Math.floor(Math.random()*4));
+    randy=parseInt(Math.floor(Math.random()*4));
+    time++;
+}
+if(time==50){
+    for(var i=0;i<4;i++){
+      for(var j=0;j<4;j++){
+        if(board[i][j]){
+            randx=i;
+            randy=j;
+        }
+      }  
+    }
+}
+
+//随机一个数字
+var rand_number=Math.random()<0.5?2:4;
+//在随机位置随机数字
+board[randx][randy]=rand_number;
+show_number_width_animation(randx,randy,rand_number);
+return true;
+}
+
+//自适应处理
+function prepare_for_mobile(){
+    if(document_width>500){
+        gird_container_width=500;
+        cell_side_length=100;
+        cell_space=20;
+    }
+    $('#gird_container').css('width',gird_container_width-2*cell_space);
+    $('#gird_container').css('height',gird_container_width-2*cell_space);
+    $('#gird_container').css('padding',cell_space);
+    $('#gird_container').css('border-radius',0.02*gird_container_width);
+    $('#gird_cell').css('width',cell_side_length);
+    $('#gird_cell').css('height',cell_side_length);
+    $('#gird_cell').css('border-radius',0.02*gird_container_width);
+     
+}
+
+//监听键盘的上下左右移动
+$(document).keydown(function(event){ //按键式改变
+    if ($('#score').text()==success_string){
+        new_game();
+        return;
+    }
+    switch(event.keyCode){
+        case 37: //left
+        event.preventDefault();
+        if(move_left()){
+            setTimeout('generate_one_number()',210);
+            setTimeout('is_gameover()',300);
+            break;
+        }
+    }
+});
