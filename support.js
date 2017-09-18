@@ -52,3 +52,87 @@ function nospace(board){
     }
     return true;
 }
+
+//判断是否能向左移动
+function can_move_left(board){
+    for(var i=0;i<4;i++){
+        for(var j=1;j<4;j++){
+            if(board[i][j]!=0){
+                if(board[i][j-1]==0||board[i][j]==board[i][j-1]){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+//判断是否能向右运动
+function can_move_right(board){
+    for(var i=0;i<4;i++){
+        for(var j=2;j>=0;j--){
+            if(board[i][j]!=0){
+                if(board[i][j+1]==0||board[i][j]==board[i][j+1]){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+//判断是否能向上运动
+function can_move_up(board){
+    for(var j=0;j<4;j++){
+        for(var i=1;i,4;i++){
+            if(board[i][j]!=0){
+                if(board[i-1][j]==0||board[i][j]==board[i-1][j]){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+//判断是否能向下运动
+function can_move_down(board){
+    for(var j=0;j<4;j++){
+        for(var i=2;i>=0;i--){
+            if(board[i][j]!=0){
+                if(board[i+1][j]==0||board[i][j]==board[i+1][j]){
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+//判断水平方向上时候是否有空格子
+function no_block_horizontal(row,col1,col2,board){
+    for(var i=col1+1;i<col2;i++){
+        if(board[row][i]!=0){
+            return false;
+        }
+    }
+    return true;
+}
+
+//判断垂直方向上时候是否有空格子
+function no_block_vertical(col,row1,row2,board){
+    for(var i=row1+1;i<row2;i++){
+        if(board[i][col]!=0){
+            return false;
+        }
+    }
+    return true;
+}
+
+//判断是否还能移动
+function nomove(board){
+    if(can_move_down(board)||can_move_up(board)||can_move_left(board)||can_move_right(board)){
+        return false;
+    }
+    return true;
+}

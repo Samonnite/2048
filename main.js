@@ -144,11 +144,108 @@ $(document).keydown(function(event){ //按键式改变
     }
     switch(event.keyCode){
         case 37: //left
+        event.preventDefault(); //取消事件的默认动作
+        if(move_left()){
+            setTimeout('generate_one_number()',210);
+            setTimeout('is_gameover()',300);
+        }
+        break;
+        case 38: //up
         event.preventDefault();
         if(move_left()){
             setTimeout('generate_one_number()',210);
             setTimeout('is_gameover()',300);
-            break;
+        }
+        break; 
+        case 39: //right
+        event.preventDefault();
+        if(move_left()){
+            setTimeout('generate_one_number()',210);
+            setTimeout('is_gameover()',300);
+        }
+        break; 
+        case 38: //down
+        event.preventDefault();
+        if(move_left()){
+            setTimeout('generate_one_number()',210);
+            setTimeout('is_gameover()',300);
+        }
+        break;
+        default:
+        break; 
+    }
+});
+
+//监听移动设备的触摸开始
+document.addEventListener('touchstart',function(event){
+    startx=event.touches[0].pageX;
+    starty=event.touches[0].pageY;
+});
+
+//监听移动设备的触摸移动
+document.addEventListener('touchmove',function(event){
+    event.preventDefault();
+});
+
+//监听移动设备的触摸结束
+document.addEventListener('touchend',function(event){
+    endx=event.changeTouches[0].pageX;
+    endy=event.changeTouches[0].pageY;
+
+    var deltax=endx-startx;
+    var deltay=endy-starty;
+    if(Math.abs(deltax)<0.3*document_width&&Math.abs(deltay)<0.3*document_width){
+        return;
+    }
+    if($('#score').text()==success_string){
+        new_game();
+        return;
+    }
+    //x
+    if(Math.abs(deltax)>=Math.abs(deltay)){
+        if(deltax>0){
+            //move right
+            if(move_right()){
+                setTimeout('generate_one_number()',210);
+                setTimeout('is_gameover()',300);
+            }
+        }else{
+            //move left
+            if(move_left()){
+                setTimeout('generate_one_number()',210);
+                setTimeout('is_gameover()',300);
+            }
+        }
+    }else{ //y
+        if(deltay>0){
+            //move down
+            if(move_down()){
+                setTimeout('generate_one_number()',210);
+                setTimeout('is_gameover()',300);
+            }
+        }else{
+            //move up
+            if(move_up()){
+                setTimeout('generate_one_number()',210);
+                setTimeout('is_gameover()',300);
+            }
         }
     }
 });
+
+//向左移动
+function move_left(){
+    if(!can_move_left(board)){
+        return false;
+    }
+    //move left
+    for(var i=0;i<4;i++){
+       for(var j=1;j<4;j++){
+           if(board[i][j]!=0){
+               for(var k=0;k<j;k++){
+                   if (){}
+               }
+           }
+       } 
+    }
+}
